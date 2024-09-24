@@ -5,6 +5,9 @@ import com.example.avancetf.dtos.AdministradorDTO;
 import com.example.avancetf.service.AdministradorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,4 +48,5 @@ public class AdministradorController {
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);
         administradorService.eliminarAdministrador(administrador.getId());
     }
+
 }

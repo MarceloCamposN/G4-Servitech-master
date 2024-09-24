@@ -9,4 +9,5 @@ public interface AdministradorService {
     public void eliminarAdministrador(Long id);
     public Administrador modificarAdministrador(Administrador administrador);
     public List<Administrador> listarAdministradores();
+
 }

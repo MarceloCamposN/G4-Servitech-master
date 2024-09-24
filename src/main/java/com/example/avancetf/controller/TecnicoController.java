@@ -1,5 +1,6 @@
 package com.example.avancetf.controller;
 import com.example.avancetf.Entities.Tecnico;
+import com.example.avancetf.dtos.CountSolicitudServiciosDTO;
 import com.example.avancetf.dtos.TecnicoDTO;
 import com.example.avancetf.service.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,15 @@ public class TecnicoController {
         tecnico = tecnicoService.modificarTecnico(tecnico);
         return modelMapper.map(tecnico, TecnicoDTO.class);
     }
-
     @DeleteMapping("/tecnico")
     public void eliminarTecnico(@RequestBody TecnicoDTO TecnicoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Tecnico tecnico = modelMapper.map(TecnicoDTO, Tecnico.class);
         tecnicoService.eliminarTecnico(tecnico.getId());
     }
-
+    @GetMapping("/tecnico/listarSolicitudDesc")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<CountSolicitudServiciosDTO>listarSolicitudServicios(){
+        return tecnicoService.listarSolicitudServicios();
+    }
 }

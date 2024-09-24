@@ -1,6 +1,8 @@
 package com.example.avancetf.controller;
 
 import com.example.avancetf.Entities.SolicitudServicio;
+import com.example.avancetf.dtos.CountNroSolicitudesSumMontoDTO;
+import com.example.avancetf.dtos.ServicioPorEstadoDTO;
 import com.example.avancetf.dtos.SolicitudServicioDTO;
 import com.example.avancetf.service.SolicitudService;
 import org.modelmapper.ModelMapper;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @CrossOrigin(origins = {"http://localhost:4200","http://18.216.202.149/"})
 @RestController
@@ -75,6 +78,23 @@ public class SolicitudController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/solicitud/filtrarEstado/{estado}/{idCliente}")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
+    public List<ServicioPorEstadoDTO>filtrarServiciosPorEstado(@PathVariable("estado") String estado, @PathVariable("idCliente") Long idCliente){
+        return solicitudService.filtrarServiciosPorEstado(estado, idCliente);
+    }
+    @GetMapping ("/solicitud/mostrarDescFechas/{fechaInicio}/{fechaFin}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public List<CountNroSolicitudesSumMontoDTO>MostrarServiciosDescendentementePorCantidadMontoTotalEntreFechas(@PathVariable("fechaInicio") LocalDate fechaInicio, @PathVariable("fechaFin") LocalDate fechaFinal)
+    {
+        return solicitudService.MostrarServiciosDescendentementePorCantidadMontoTotalEntreFechas(fechaInicio, fechaFinal);
+    }
+    @GetMapping ("/solicitud/mostrarAscFechas/{fechaInicio}/{fechaFin}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public List<CountNroSolicitudesSumMontoDTO>MostrarServiciosAscendentementePorCantidadMontoTotalEntreFechas(@PathVariable("fechaInicio") LocalDate fechaInicio, @PathVariable("fechaFin") LocalDate fechaFinal)
+    {
+        return solicitudService.MostrarServiciosAscendentementePorCantidadMontoTotalEntreFechas(fechaInicio, fechaFinal);
     }
 
 }

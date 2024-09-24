@@ -26,6 +26,7 @@ public class ClienteController {
     }
 
     @GetMapping("/clientes")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<ClienteDTO> listarClientes() {
         List<Cliente> lista = clienteService.listarClientes();
         ModelMapper modelMapper = new ModelMapper();
