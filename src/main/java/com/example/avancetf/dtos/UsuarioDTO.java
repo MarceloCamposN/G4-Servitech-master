@@ -13,7 +13,7 @@ public class UsuarioDTO {
     private String apellidos;
     private String correo;
     private String password;
-    private String usuario;
+    private String username;
     private String direccion;
     private Boolean eliminado;
 }

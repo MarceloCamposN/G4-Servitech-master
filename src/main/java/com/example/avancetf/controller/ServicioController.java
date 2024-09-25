@@ -4,6 +4,7 @@ import com.example.avancetf.dtos.ServicioDTO;
 import com.example.avancetf.service.ServicioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class ServicioController {
     private ServicioService servicioService;
 
     @PostMapping("/servicio")
+    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     public ServicioDTO insertarServicio(@RequestBody ServicioDTO ServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Servicio servicio = modelMapper.map(ServicioDTO, Servicio.class);
@@ -24,6 +26,7 @@ public class ServicioController {
     }
 
     @GetMapping("/servicios")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<ServicioDTO> listarServicios() {
         List<Servicio> lista = servicioService.listarServicios();
         ModelMapper modelMapper = new ModelMapper();
@@ -32,6 +35,7 @@ public class ServicioController {
     }
 
     @PutMapping("/servicio")
+    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     public ServicioDTO modificarServicio(@RequestBody ServicioDTO ServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Servicio servicio = modelMapper.map(ServicioDTO, Servicio.class);
@@ -40,6 +44,7 @@ public class ServicioController {
     }
 
     @DeleteMapping("/servicio")
+    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     public void eliminarServicio(@RequestBody ServicioDTO ServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Servicio servicio = modelMapper.map(ServicioDTO, Servicio.class);

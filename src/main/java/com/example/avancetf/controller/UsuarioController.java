@@ -33,6 +33,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuarios")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<UsuarioDTO> listarUsuarios() {
         List<User> lista = usuarioService.listarUsuarios();
         ModelMapper modelMapper = new ModelMapper();
@@ -40,6 +41,7 @@ public class UsuarioController {
         return listaDTO;
     }
     @PutMapping("/usuario")
+    @PreAuthorize("hasAnyRole('ADMIN','USER','TECNICO','CLIENTE')")
     public UsuarioDTO modificarUsuario(@RequestBody UsuarioDTO UsuarioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         User usuario = modelMapper.map(UsuarioDTO, User.class);
@@ -48,6 +50,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/usuario")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public void eliminarUsuario(@RequestBody UsuarioDTO UsuarioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         User usuario = modelMapper.map(UsuarioDTO, User.class);

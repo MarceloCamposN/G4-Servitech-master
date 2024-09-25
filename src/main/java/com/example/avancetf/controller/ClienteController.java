@@ -17,7 +17,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping("/cliente")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ClienteDTO insertarCliente(@RequestBody ClienteDTO ClienteDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(ClienteDTO, Cliente.class);
@@ -35,6 +35,7 @@ public class ClienteController {
     }
 
     @PutMapping("/cliente")
+    @PreAuthorize("hasRole('ADMIN')")
     public ClienteDTO modificarCliente(@RequestBody ClienteDTO ClienteDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(ClienteDTO, Cliente.class);
@@ -43,6 +44,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/cliente")
+    @PreAuthorize("hasRole('ADMIN')")
     public void eliminarCliente(@RequestBody ClienteDTO ClienteDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(ClienteDTO, Cliente.class);

@@ -7,7 +7,10 @@ import com.example.avancetf.dtos.SolicitudServicioDTO;
 import com.example.avancetf.service.SolicitudService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,6 +23,7 @@ public class SolicitudController {
     private SolicitudService solicitudService;
 
     @PostMapping("/solicitud")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'ADMIN')")
     public SolicitudServicioDTO insertarSolicitud(@RequestBody SolicitudServicioDTO SolicitudServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         SolicitudServicio solicitud = modelMapper.map(SolicitudServicioDTO, SolicitudServicio.class);
@@ -30,6 +34,7 @@ public class SolicitudController {
 
 
     @PutMapping("/solicitud")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'ADMIN')")
     public SolicitudServicioDTO modificarSolicitud(@RequestBody SolicitudServicioDTO SolicitudServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         SolicitudServicio solicitud = modelMapper.map(SolicitudServicioDTO, SolicitudServicio.class);
@@ -38,6 +43,7 @@ public class SolicitudController {
     }
 
     @DeleteMapping("/solicitud")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'ADMIN')")
     public void eliminarSolicitud(@RequestBody SolicitudServicioDTO SolicitudServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         SolicitudServicio solicitud = modelMapper.map(SolicitudServicioDTO, SolicitudServicio.class);
@@ -45,27 +51,32 @@ public class SolicitudController {
     }
 
     @GetMapping("/solicitudes")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'ADMIN')")
     public List<SolicitudServicioDTO> listarSolicitudes() {
         List<SolicitudServicio> lista = solicitudService.listarSolicitudes();
         ModelMapper modelMapper = new ModelMapper();
         List<SolicitudServicioDTO> listaDTO = modelMapper.map(lista, List.class);
         return listaDTO;
     }
-    @GetMapping("/solicitudes/terminadaspor/{id}") //el servicio fue terminado exitosamente
+
+    @GetMapping("/solicitudes/terminadaspor/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')") //el servicio fue terminado exitosamente
     public List<SolicitudServicioDTO> listarSolicitudesTerminadasDeTecnico(@PathVariable Long id) {
         List<SolicitudServicio> lista = solicitudService.findByEstadoAndServicioTecnicoId("Terminado" , id);
         ModelMapper modelMapper = new ModelMapper();
         List<SolicitudServicioDTO> listaDTO = modelMapper.map(lista, List.class);
         return listaDTO;
     }
-    @GetMapping("/solicitudes/cliente/{id}") //listar solicitudes por cliente
-    public List<SolicitudServicioDTO> listarSolicitudesPorCliente(@PathVariable Long id) {
+    @GetMapping("/solicitudes/cliente/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")//listar solicitudes por cliente
+    public List<SolicitudServicioDTO> listarSolicitudesPorCliente(@PathVariable("id") Long id) {
         List<SolicitudServicio> lista = solicitudService.findByClienteId(id);
         ModelMapper modelMapper = new ModelMapper();
         List<SolicitudServicioDTO> listaDTO = modelMapper.map(lista, List.class);
         return listaDTO;
     }
     @DeleteMapping("/solicitud/cancelar")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     public ResponseEntity<String>  cancelarSolicitud(@RequestBody SolicitudServicioDTO SolicitudServicioDTO) {
         ModelMapper modelMapper = new ModelMapper();
         SolicitudServicio solicitud = modelMapper.map(SolicitudServicioDTO, SolicitudServicio.class);

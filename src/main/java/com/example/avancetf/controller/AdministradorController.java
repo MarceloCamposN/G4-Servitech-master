@@ -19,6 +19,7 @@ public class AdministradorController {
     private AdministradorService administradorService;
 
     @PostMapping("/administrador")
+    @PreAuthorize("hasRole('ADMIN')")
     public AdministradorDTO insertarAdministrador(@RequestBody AdministradorDTO AdministradorDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);
@@ -27,6 +28,7 @@ public class AdministradorController {
     }
 
     @GetMapping("/administradores")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<AdministradorDTO> listarAdministradors() {
         List<Administrador> lista = administradorService.listarAdministradores();
         ModelMapper modelMapper = new ModelMapper();
@@ -35,6 +37,7 @@ public class AdministradorController {
     }
 
     @PutMapping("/administrador")
+    @PreAuthorize("hasRole('ADMIN')")
     public AdministradorDTO modificarAdministrador(@RequestBody AdministradorDTO AdministradorDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);
@@ -43,6 +46,7 @@ public class AdministradorController {
     }
 
     @DeleteMapping("/administrador")
+    @PreAuthorize("hasRole('ADMIN')")
     public void eliminarAdministrador(@RequestBody AdministradorDTO AdministradorDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);

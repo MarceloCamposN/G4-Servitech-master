@@ -18,6 +18,7 @@ public class ValoracionController {
     private ValoracionService valoracionService;
 
     @PostMapping("/valoracion")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public ValoracionDTO insertarValoracion(@RequestBody ValoracionDTO ValoracionDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Valoracion valoracion = modelMapper.map(ValoracionDTO, Valoracion.class);
@@ -35,12 +36,13 @@ public class ValoracionController {
     }
 
     @GetMapping("/filtrarTecnicosPorCalificacion/{calificacion}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public List<CountTecnicosPorCalificacionDTO> countTecnicosPorCalificacion(@PathVariable Double calificacion) {
         return valoracionService.filtrarTecnicosPorCalificacion(calificacion);
     }
 
     @PutMapping("/valoracion")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public ValoracionDTO modificarValoracion(@RequestBody ValoracionDTO ValoracionDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Valoracion valoracion = modelMapper.map(ValoracionDTO, Valoracion.class);
@@ -49,6 +51,7 @@ public class ValoracionController {
     }
 
     @DeleteMapping("/valoracion")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public void eliminarValoracion(@RequestBody ValoracionDTO ValoracionDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Valoracion valoracion = modelMapper.map(ValoracionDTO, Valoracion.class);

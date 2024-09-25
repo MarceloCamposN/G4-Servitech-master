@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class ServicioDTO{
 
     private Long id;
+    private String nombre;
     private String descripcion;
     private String tipo;
     private Double costo;

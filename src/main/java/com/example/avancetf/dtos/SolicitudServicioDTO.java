@@ -16,7 +16,6 @@ public class SolicitudServicioDTO {
     private Long id;
     private LocalDate fechaSolicitud;
     private String descripcionProblema;
-    private Double precioFinal;
     private String estado;
     private Boolean eliminado;
     private Servicio servicio;

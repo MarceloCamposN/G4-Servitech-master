@@ -19,10 +19,8 @@ public class SolicitudServicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true) // un compañero agregó un query sobre fecha ayer profe ahora lo reviso
     private LocalDate fechaSolicitud;
     private String descripcionProblema;
-    private Double precioFinal;
     private String estado;
     private Boolean eliminado;
     @ManyToOne
