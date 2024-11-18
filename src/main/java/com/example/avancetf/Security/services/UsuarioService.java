@@ -1,6 +1,6 @@
-package com.example.avancetf.service;
+package com.example.avancetf.Security.services;
 
-import com.example.avancetf.Entities.User;
+import com.example.avancetf.Security.entities.User;
 
 import java.util.List;
 
@@ -11,4 +11,5 @@ public interface UsuarioService {
     public User modificarUsuario(User usuario);
     public List<User> listarUsuarios();
     public Integer insertUserRol(Long user_id, Long rol_id);
+    public User buscarPorID(Long id);
 }

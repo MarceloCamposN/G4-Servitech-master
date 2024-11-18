@@ -12,5 +12,8 @@ public interface ValoracionService {
     public Valoracion modificarValoracion(Valoracion valoracion);
     public List<Valoracion> listarValoracions();
     public List<Valoracion> findByTecnicoId(Long id);
+    public List<Valoracion> findByClienteId(Long id);
     public List<CountTecnicosPorCalificacionDTO> filtrarTecnicosPorCalificacion(Double calificacion);
+
+    Valoracion buscarPorId(Long id);
 }

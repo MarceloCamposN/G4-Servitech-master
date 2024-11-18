@@ -47,8 +47,21 @@ public class ValoracionServiceImpl implements ValoracionService {
     }
 
     @Override
+    public List<Valoracion> findByClienteId(Long id) {
+        return valoracionRepositorio.findByClienteId(id);
+    }
+
+    @Override
     public List<CountTecnicosPorCalificacionDTO> filtrarTecnicosPorCalificacion(Double calificacion) {
         return valoracionRepositorio.filtrarTecnicosPorCalificacion(calificacion);
+    }
+
+    @Override
+    public Valoracion buscarPorId(Long id) {
+        if(valoracionRepositorio.findById(id).isPresent()){
+            return valoracionRepositorio.findById(id).get();
+        }
+        return null;
     }
 
 }

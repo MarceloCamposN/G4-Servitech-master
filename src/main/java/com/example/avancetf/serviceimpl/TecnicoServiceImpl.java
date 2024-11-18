@@ -40,4 +40,16 @@ public class TecnicoServiceImpl implements TecnicoService {
     public List<CountSolicitudServiciosDTO>listarSolicitudServicios(){
         return tecnicoRepositorio.listarSolicitudServicios();
     }
+
+    @Override
+    public Tecnico buscarPorId(Long id) {
+        if(tecnicoRepositorio.findById(id).isPresent()){
+            return tecnicoRepositorio.findById(id).get();
+        }
+        return null;
+    }
+    @Override
+    public Long buscarIdPorUsuarioId(Long usuarioId) {
+        return tecnicoRepositorio.findIdByUsuarioId(usuarioId);
+    }
 }

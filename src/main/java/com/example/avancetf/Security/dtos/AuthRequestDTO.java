@@ -1,4 +1,4 @@
-package com.example.avancetf.dtos;
+package com.example.avancetf.Security.dtos;
 
 public class AuthRequestDTO {
     private String username;

@@ -29,6 +29,13 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     @Override
+    public void eliminarLogicoServicio(Long id) {
+        Servicio servicio = servicioRepositorio.findById(id).get();
+        servicio.setEliminado(true);
+        servicioRepositorio.save(servicio);
+    }
+
+    @Override
     public Servicio modificarServicio(Servicio servicio) {
         if(servicioRepositorio.existsById(servicio.getId())){
             return servicioRepositorio.save(servicio);
@@ -37,7 +44,22 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     @Override
-    public List<Servicio> listarServicios() {
-        return servicioRepositorio.findByEliminadoFalse();
+    public List<Servicio> listarServicios(String estado) {
+        return servicioRepositorio.findByEliminadoFalseAndEstado(estado);
     }
+
+    @Override
+    public Servicio buscarPorId(Long id) {
+        if(servicioRepositorio.findById(id).isPresent()){
+            return servicioRepositorio.findById(id).get();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Servicio> findByTecnicoAndEliminadoFalse(Long id) {
+        return servicioRepositorio.findByTecnicoIdAndEliminadoFalse(id);
+    }
+
+
 }

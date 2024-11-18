@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ServicioRepositorio extends JpaRepository<Servicio, Long> {
-    List<Servicio> findByEliminadoFalse();
+    List<Servicio> findByEliminadoFalseAndEstado(String estado);
+    List<Servicio> findByTecnicoIdAndEliminadoFalse(Long id);
+
 }

@@ -13,8 +13,9 @@ import java.util.List;
 
 public interface SolicitudRepositorio extends JpaRepository<SolicitudServicio, Long> {
     //Encuentra todos los servicios de un cliente por estado(finalizado,actico o espera)
-    List<SolicitudServicio> findByEstadoAndServicioTecnicoId(String estado, Long servicioTecnicoId);
-    List<SolicitudServicio> findByClienteId(Long id);
+    List<SolicitudServicio> findByEstadoAndServicioId(String estado, Long servicioId);
+    List<SolicitudServicio> findByServicioTecnicoId(Long id);
+    List<SolicitudServicio> findByClienteIdAndEstado(Long id, String Estado);
     @Query("select new com.example.avancetf.dtos.ServicioPorEstadoDTO(ss.servicio.descripcion, ss.servicio.tipo, ss.servicio.costo, ss.fechaSolicitud) from SolicitudServicio ss where ss.estado = :estado and ss.cliente.id = :idCliente")
     List<ServicioPorEstadoDTO> filtrarServiciosPorEstado(@Param("estado") String estado, @Param("idCliente") Long idCliente);
 

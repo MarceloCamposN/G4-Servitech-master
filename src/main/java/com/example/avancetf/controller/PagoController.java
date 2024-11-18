@@ -5,8 +5,8 @@ import com.example.avancetf.dtos.PagoDTO;
 import com.example.avancetf.service.PagoServicee;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +17,9 @@ import java.util.List;
 public class PagoController {
     @Autowired
     private PagoServicee pagoService;
-    @Autowired
-    private PasswordEncoder bcrypt;
+    //@Autowired
+    //private PasswordEncoder bcrypt;
     @PostMapping("/pago")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public PagoDTO insertarPago(@RequestBody PagoDTO PagoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Pago pago = modelMapper.map(PagoDTO, Pago.class);
@@ -29,7 +28,6 @@ public class PagoController {
     }
 
     @GetMapping("/pagos")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<PagoDTO> listarPagos() {
         List<Pago> lista = pagoService.listarPagos();
         ModelMapper modelMapper = new ModelMapper();
@@ -37,7 +35,6 @@ public class PagoController {
         return listaDTO;
     }
     @PutMapping("/pago")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public PagoDTO modificarPago(@RequestBody PagoDTO PagoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Pago pago = modelMapper.map(PagoDTO, Pago.class);
@@ -46,7 +43,6 @@ public class PagoController {
     }
 
     @DeleteMapping("/pago")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public void eliminarPago(@RequestBody PagoDTO PagoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Pago pago = modelMapper.map(PagoDTO, Pago.class);

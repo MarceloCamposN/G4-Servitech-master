@@ -37,4 +37,12 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepositorio.findByUsuarioEliminadoFalse();
     }
 
+    @Override
+    public Cliente buscarPorId(Long id) {
+        if(clienteRepositorio.findById(id).isPresent()){
+            return clienteRepositorio.findById(id).get();
+        }
+        return null;
+    }
+
 }
