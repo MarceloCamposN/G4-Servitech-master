@@ -1,4 +1,4 @@
-package com.example.avancetf.util;
+package com.example.avancetf.Security.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

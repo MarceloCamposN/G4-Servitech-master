@@ -1,9 +1,11 @@
 package com.example.avancetf.dtos;
 
-import com.example.avancetf.Entities.User;
+import com.example.avancetf.Security.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDate;
 
 
 @Data
@@ -12,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class ClienteDTO {
 
     private Long id;
-    private String historialServicios;
+    private LocalDate fechaCreacion;
     private User usuario;
 
 

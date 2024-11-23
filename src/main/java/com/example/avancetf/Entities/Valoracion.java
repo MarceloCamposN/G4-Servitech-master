@@ -15,7 +15,7 @@ public class Valoracion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(nullable = false)
     private String comentario;
     private String tipo;
     private Double calificacion;

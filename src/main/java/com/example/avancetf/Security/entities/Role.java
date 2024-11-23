@@ -1,4 +1,4 @@
-package com.example.avancetf.Entities;
+package com.example.avancetf.Security.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

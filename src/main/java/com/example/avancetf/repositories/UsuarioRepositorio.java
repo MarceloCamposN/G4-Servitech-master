@@ -1,6 +1,6 @@
 package com.example.avancetf.repositories;
 
-import com.example.avancetf.Entities.User;
+import com.example.avancetf.Security.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

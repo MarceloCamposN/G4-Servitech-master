@@ -4,11 +4,12 @@ import com.example.avancetf.dtos.CountSolicitudServiciosDTO;
 import com.example.avancetf.dtos.TecnicoDTO;
 import com.example.avancetf.service.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4200","http://18.216.202.149/"})
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class TecnicoController {
@@ -17,7 +18,6 @@ public class TecnicoController {
     private TecnicoService tecnicoService;
 
     @PostMapping("/tecnico")
-    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     public TecnicoDTO insertarTecnico(@RequestBody TecnicoDTO TecnicoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Tecnico tecnico = modelMapper.map(TecnicoDTO, Tecnico.class);
@@ -26,7 +26,6 @@ public class TecnicoController {
     }
 
     @GetMapping("/tecnicos")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<TecnicoDTO> listarTecnicos() {
         List<Tecnico> lista = tecnicoService.listarTecnicos();
         ModelMapper modelMapper = new ModelMapper();
@@ -35,7 +34,6 @@ public class TecnicoController {
     }
 
     @PutMapping("/tecnico")
-    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     public TecnicoDTO modificarTecnico(@RequestBody TecnicoDTO TecnicoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Tecnico tecnico = modelMapper.map(TecnicoDTO, Tecnico.class);
@@ -43,15 +41,20 @@ public class TecnicoController {
         return modelMapper.map(tecnico, TecnicoDTO.class);
     }
     @DeleteMapping("/tecnico")
-    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     public void eliminarTecnico(@RequestBody TecnicoDTO TecnicoDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Tecnico tecnico = modelMapper.map(TecnicoDTO, Tecnico.class);
         tecnicoService.eliminarTecnico(tecnico.getId());
     }
     @GetMapping("/tecnico/listarSolicitudDesc")
-    @PreAuthorize("hasRole('ADMIN')")
     public List<CountSolicitudServiciosDTO>listarSolicitudServicios(){
         return tecnicoService.listarSolicitudServicios();
+    }
+    @GetMapping("/tecnicos/{id}")
+    public ResponseEntity<TecnicoDTO> buscaTecnico(@PathVariable Long id) {
+        ModelMapper modelMapper = new ModelMapper();
+        Tecnico tecnico = tecnicoService.buscarPorId(id);
+        TecnicoDTO tecnicoDTO = modelMapper.map(tecnico, TecnicoDTO.class);
+        return ResponseEntity.ok(tecnicoDTO);
     }
 }

@@ -15,5 +15,6 @@ public class UsuarioDTO {
     private String password;
     private String username;
     private String direccion;
-    private Boolean eliminado;
+    private Long telefono;
+    private Boolean eliminado = false;
 }

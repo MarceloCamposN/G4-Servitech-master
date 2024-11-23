@@ -1,7 +1,7 @@
 package com.example.avancetf.serviceimpl;
 
-import com.example.avancetf.Entities.User;
-import com.example.avancetf.service.UsuarioService;
+import com.example.avancetf.Security.entities.User;
+import com.example.avancetf.Security.services.UsuarioService;
 import com.example.avancetf.repositories.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +44,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         Integer result = 0;
         usuarioRepositorio.insertUserRol(user_id, rol_id);
         return 1;
+    }
+
+    @Override
+    public User buscarPorID(Long id) {
+        if(usuarioRepositorio.findById(id).isPresent()){
+            return usuarioRepositorio.findById(id).get();
+        }
+        return null;
     }
 
 }

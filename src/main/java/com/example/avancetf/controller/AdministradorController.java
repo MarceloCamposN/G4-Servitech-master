@@ -7,11 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4200","http://18.216.202.149/"})
+@CrossOrigin(origins = {"http://localhost:4200","http://18.219.237.192/"})
 @RestController
 @RequestMapping("/api")
 public class AdministradorController {
@@ -19,7 +19,6 @@ public class AdministradorController {
     private AdministradorService administradorService;
 
     @PostMapping("/administrador")
-    @PreAuthorize("hasRole('ADMIN')")
     public AdministradorDTO insertarAdministrador(@RequestBody AdministradorDTO AdministradorDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);
@@ -28,7 +27,6 @@ public class AdministradorController {
     }
 
     @GetMapping("/administradores")
-    @PreAuthorize("hasRole('ADMIN')")
     public List<AdministradorDTO> listarAdministradors() {
         List<Administrador> lista = administradorService.listarAdministradores();
         ModelMapper modelMapper = new ModelMapper();
@@ -37,7 +35,6 @@ public class AdministradorController {
     }
 
     @PutMapping("/administrador")
-    @PreAuthorize("hasRole('ADMIN')")
     public AdministradorDTO modificarAdministrador(@RequestBody AdministradorDTO AdministradorDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);
@@ -46,7 +43,6 @@ public class AdministradorController {
     }
 
     @DeleteMapping("/administrador")
-    @PreAuthorize("hasRole('ADMIN')")
     public void eliminarAdministrador(@RequestBody AdministradorDTO AdministradorDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Administrador administrador = modelMapper.map(AdministradorDTO, Administrador.class);

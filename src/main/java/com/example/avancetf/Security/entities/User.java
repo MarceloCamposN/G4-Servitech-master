@@ -1,9 +1,10 @@
-package com.example.avancetf.Entities;
+package com.example.avancetf.Security.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,14 +17,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String nombres;
     private String apellidos;
     private String correo;
     private String password;
     private String username;
     private String direccion;
-    private Boolean eliminado = false;
+    private Long telefono;
+    private Boolean eliminado;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
         name = "user_roles",

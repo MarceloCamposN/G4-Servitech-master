@@ -41,25 +41,60 @@ public class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Override
-    public void cancelarSolicitud(Long id) {
+    public void TerminarSolicitud(Long id) {
         SolicitudServicio solicitudServicio = solicitudRepositorio.findById(id).get();
-        if(!solicitudServicio.getEstado().equals("En Proceso"))
+        if(!solicitudServicio.getEstado().equals("En proceso"))
         {
             throw new IllegalStateException("Solo se pueden cancelar solicitudes que están en proceso.");
+        }
+        solicitudServicio.setEstado("Terminado");
+        solicitudRepositorio.save(solicitudServicio);
+    }
+
+    @Override
+    public void procesarSolicitud(Long id) {
+        SolicitudServicio solicitudServicio = solicitudRepositorio.findById(id).get();
+        if(!solicitudServicio.getEstado().equals("Pendiente"))
+        {
+            throw new IllegalStateException("Solo se pueden cancelar solicitudes que están pendiente.");
+        }
+        solicitudServicio.setEstado("En proceso");
+        solicitudRepositorio.save(solicitudServicio);
+    }
+
+    @Override
+    public void cancelarSolicitud(Long id) {
+        SolicitudServicio solicitudServicio = solicitudRepositorio.findById(id).get();
+        if(!solicitudServicio.getEstado().equals("Pendiente"))
+        {
+            throw new IllegalStateException("Solo se pueden cancelar solicitudes que están pendientes");
         }
         solicitudServicio.setEstado("Cancelado");
         solicitudRepositorio.save(solicitudServicio);
     }
 
     @Override
-    public List<SolicitudServicio> findByEstadoAndServicioTecnicoId(String estado, Long servicioTecnicoId) {
-        return solicitudRepositorio.findByEstadoAndServicioTecnicoId(estado, servicioTecnicoId);
+    public SolicitudServicio buscarPorId(Long id) {
+        if(solicitudRepositorio.findById(id).isPresent()){
+            return solicitudRepositorio.findById(id).get();
+        }
+        return null;
     }
 
     @Override
-    public List<SolicitudServicio> findByClienteId(Long id) {
+    public List<SolicitudServicio> findByEstadoAndServicioId(String estado, Long servicioId) {
+        return solicitudRepositorio.findByEstadoAndServicioId(estado, servicioId);
+    }
+
+    @Override
+    public List<SolicitudServicio> findByServicioTecnicoId(Long id) {
+        return solicitudRepositorio.findByServicioTecnicoId(id);
+    }
+
+    @Override
+    public List<SolicitudServicio> findByClienteIdAndEstado(Long id, String Estado) {
         
-        return solicitudRepositorio.findByClienteId(id);
+        return solicitudRepositorio.findByClienteIdAndEstado(id, Estado);
     }
     @Override
     public List<ServicioPorEstadoDTO> filtrarServiciosPorEstado(String estado, Long idCliente){

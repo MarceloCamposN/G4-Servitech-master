@@ -14,7 +14,10 @@ import lombok.NoArgsConstructor;
 public class ValoracionDTO {
     private Long id;
     private String comentario;
+    private String tipo;
     private Double calificacion;
+    private String fecha;
     private Cliente cliente;
     private Tecnico tecnico;
+
 }

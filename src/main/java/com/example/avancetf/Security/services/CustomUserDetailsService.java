@@ -1,5 +1,6 @@
-package com.example.avancetf.service;
-import com.example.avancetf.Entities.User;
+package com.example.avancetf.Security.services;
+
+import com.example.avancetf.Security.entities.User;
 import com.example.avancetf.repositories.UsuarioRepositorio;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final UsuarioRepositorio usuarioRepositorio;
@@ -32,5 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(user.getPassword())
                 .authorities(authorities)
                 .build();
+    }
+    public User findUsuarioByUsername(String username) {
+        return usuarioRepositorio.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con username: " + username));
     }
 }
